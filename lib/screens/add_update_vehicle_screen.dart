@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vehicle_monintoring/provider/vehicle_provider.dart';
 import '../models/vehicle.dart';
 import '../services/firebase_service.dart';
+import 'package:provider/provider.dart';
 
 class AddUpdateVehicleScreen extends StatefulWidget {
   final Vehicle? vehicle;
@@ -62,6 +64,8 @@ class _AddUpdateVehicleScreenState extends State<AddUpdateVehicleScreen> {
           await _firebaseService.updateVehicle(vehicle);
           _showSnackbar('Vehicle updated successfully');
         }
+        await context.read<VehicleProvider>().loadVehicles();
+
         Navigator.pop(context);
       } catch (e) {
         print(e);
